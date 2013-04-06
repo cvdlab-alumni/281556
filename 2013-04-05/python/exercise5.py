@@ -95,8 +95,8 @@ VIEW(STRUCT([east,north,south,west]))
 
 
 
-depth = 14 # pedata 
-raiser = 150/(2*9) # alzata
+depth = 14
+raiser = 150/(2*9)
 step2D = MKPOL([[[0,0],[0,1.4+raiser],[depth,raiser],[depth,1.4+raiser]],
     [[1,2,3,4]],None])
 step3D = MAP([S1,S3,S2])(PROD([step2D,Q(52)]))
@@ -130,9 +130,9 @@ vetro = STRUCT([lineavert,lineaoriz,finestra2d])
 
 finestra3d = PROD([vetro,Q(12)])
 
-fine3 = STRUCT(REPLICA(3)([finestra3d,T([1])([118])]))
+fine3 = STRUCT(NN(3)([finestra3d,T([1])([118])]))
 
-findoppie = STRUCT(REPLICA(2)([fine3,T([0])([60])]))
+findoppie = STRUCT(NN(2)([fine3,T([0])([60])]))
 
 colored = T([0,1,2])([-20,a.x-13,-275])(R([1,2])(PI/2)(COLOR([0,0,0])(findoppie)))
 
