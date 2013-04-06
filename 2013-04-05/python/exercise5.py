@@ -9,10 +9,10 @@ def point2D(x,y):
 
 def arc(alpha,r,R):
 	domain = DOMAIN([[0,alpha],[r,R]])([36,50])
-	mapping=function(v){
+	mapping=function(v)
 	a=v[0]
 	r=v[1]
-	return[r*COS(a),r*SIN(a)]}
+	return[r*COS(a),r*SIN(a)]
 	model=MAP(mapping)(domain)
 	return model
 
@@ -95,7 +95,7 @@ VIEW(STRUCT([east,north,south,west]))
 depth = 14
 raiser = 150.0/(2*9)
 step2D = SIMPLICIAL_COMPLEX([[0,0],[0,1.4+raiser],[depth,raiser],[depth,1.4+raiser]])([[0,2,1],[1,2,3]])
-step3D = MAP([S0,S2,S1])(EXTRUDE([52])(step2D))
+step3D = MAP([S1,S3,S2])(EXTRUDE([52])(step2D))
 ramp = STRUCT(NN(16)([step3D,T([0,2])([depth,raiser])]))
 
 
