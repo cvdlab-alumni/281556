@@ -129,14 +129,14 @@ var findoppie = STRUCT(REPLICA(2)([fine3,T([0])([60])]));
 
 var colored = T([0,1,2])([-20,a.x-13,-275])(R([1,2])(PI/2)(COLOR([0,0,0])(findoppie)));
 
-cric1=(arc(PI,0,66.5));
+circ1=(arc(PI,0,66.5));
 circ2=(arc(PI,0,31));
 
 
 floors=STRUCT([floor1,floor0,floor2,floor3,floor4]);
 pillars=STRUCT([pillars0,pillars1,pillars2,pillars3]);
 
-var building=STRUCT([pillars,floors,east,south,west,north,stair,colored])
+var building=STRUCT([pillars,floors,east,south,west,north,stair,colored]);
 
 
-DRAW(building)
+DRAW(building);
