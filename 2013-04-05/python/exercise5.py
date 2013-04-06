@@ -1,6 +1,6 @@
 from pyplasm import *
 
-GRID = INSR(PROD)(AA(QUOTE)())
+GRID = COMP([INSR(PROD),AA(QUOTE)])
 
 
 def point2D(x,y):
@@ -8,7 +8,7 @@ def point2D(x,y):
 	y=y
 
 def arc(alpha,r,R):
-	domain = DOMAIN([[0,alpha],[r,R]])([36,50])
+	domain = INTERVALS([[0,alpha],[r,R]])([36,50])
 	mapping=function(v)
 	a=v[0]
 	r=v[1]
@@ -34,13 +34,18 @@ pq=point2D(160,331)
 q7=point2D(86,392)
 q8=point2D(160,383)
 
-pil=EXTRUDE([h])(DISK(r)())
-quad=EXTRUDE([h])(T([0,1])([r,r])(GRID([[r*2],[r*2]])))
+def Column(r,h):
+	basis = CUBOID([2*r*1.2, 2*r*1.2, h/12.0])
+	trunk = CYLINDER([r, (10./12)*h])(12)
+	capital = basis
+	beam = S(1)(3)(capital)
+	return INSR(TOP)([basis,trunk, capital, beam])
 
+pil =Column(r,h)
+quad =PROD([ T([0,1])([r,r])(GRID([[r*2],[r*2]])), Q(h) ]);
 
-
-circ1=EXTRUDE([10])(T([0,1])([560,266+66.5])(R([0,1])(-PI/2)((arc(PI,0,66.5)))))
-circ2=EXTRUDE([10])(T([0,1])([154+31,178])(R([0,1])(PI)((arc(PI,0,31)))))
+circ1=T([0,1])([560,266+66.5])(R([0,1])(-PI/2)((arc(PI,0,66.5))))
+circ2=T([0,1])([154+31,178])(R([0,1])(PI)((arc(PI,0,31))))
 
 floor0=STRUCT([GRID([[-80,560-80],[-325,399-325],[10]]),GRID([[-154,560-154],[-266,325-266],[10]]),  GRID([[-154,511-154],[-178,266-178],[10]]),circ1,circ2])
 
@@ -49,9 +54,6 @@ floor1=STRUCT([GRID([[-80,651-80],[-60,156-60,-242+156,333-242],[-h,10]]),GRID([
 floor2=STRUCT([GRID([[-80,651-80],[-60,348-60],[-h*2,10]]),GRID([[-80,140-80,-318+140,c.x-318],[-348,d.y-348],[-h*2,10]])])
 floor3=STRUCT([GRID([[-360,651-360],[-60,402-60],[-h*3,10]]),GRID([[-80,651-80],[-396,404-396],[-h*3,10]])])
 floor4=STRUCT([GRID([[-80,-360,651-80-360],[-60,402-60],[-h*4,10]]),GRID([[-80,651-80],[-335,402-335],[-h*4,10]])])
-
-
-
 
 pilla1=T([1])([p1.y])(STRUCT([T([0])([p1.x])(pil),T([0])([p2.x])(pil),T([0])([p3.x])(pil),T([0])([p4.x])(pil),T([0])([p5.x])(pil)]))
 
@@ -92,12 +94,13 @@ west=T([1])([d.y]) (R([1,2])(PI/2)(STRUCT([ GRID([[-a.x,b.x-a.x-90],[91,-120+91,
 VIEW(STRUCT([east,north,south,west]))
 
 
-depth = 14
-raiser = 150.0/(2*9)
-step2D = SIMPLICIAL_COMPLEX([[0,0],[0,1.4+raiser],[depth,raiser],[depth,1.4+raiser]])([[0,2,1],[1,2,3]])
-step3D = MAP([S1,S3,S2])(EXTRUDE([52])(step2D))
-ramp = STRUCT(NN(16)([step3D,T([0,2])([depth,raiser])]))
 
+depth = 14 # pedata 
+raiser = 150/(2*9) # alzata
+step2D = MKPOL([[[0,0],[0,1.4+raiser],[depth,raiser],[depth,1.4+raiser]],
+    [[1,2,3,4]],None])
+step3D = MAP([S1,S3,S2])(PROD([step2D,Q(52)]))
+ramp = STRUCT(NN(16)([step3D,T([1,3])([depth,raiser])]))
 
 
 stair1 = T([0,1,2])([141,333+r,0])(R([0,1])(2*PI)(ramp))
@@ -125,7 +128,7 @@ vetro = STRUCT([lineavert,lineaoriz,finestra2d])
 
 
 
-finestra3d = EXTRUDE([12])(vetro)
+finestra3d = PROD([vetro,Q(12)])
 
 fine3 = STRUCT(REPLICA(3)([finestra3d,T([1])([118])]))
 
