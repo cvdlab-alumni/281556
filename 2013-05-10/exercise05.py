@@ -282,13 +282,6 @@ def marmittafun (radius,length):
     marmitta = MAP(ROTATIONALSURFACE(funzionemarmitta))(dom2Dcirc)
     marmitta = STRUCT([Baseinf,marmitta])
     marmitta = COLOR([0.78,0.78,0.78])(marmitta)
-
-    # marmitta doppia
-    #muffler = T(1)(radius)(muffler)
-    #muffler2 = S(1)(-1)(muffler)
-    #muffler = STRUCT([muffler,muffler2])
-    #muffler = R([1,2])(-PI/2)(muffler)
-
     marmitta = R([1,3])(-PI/2)(marmitta)
 
     return marmitta
