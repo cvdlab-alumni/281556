@@ -231,7 +231,7 @@ razzamap2=R([1,3])(PI/4)(razzamap)
 
 razze=STRUCT([razzamap,razzamap2])
 
-VIEW(razze)
+#VIEW(razze)
 
 
 #SPECCHIETTO
@@ -257,10 +257,14 @@ spechietto=T([1])([0.12])(specchietto)
 
 specchiompleto=STRUCT([vetrospecchietto,specchietto])
 specchiompleto=R([2,3])(PI/2)(specchiompleto)
+specchioScale=S([1,2,3])([200,200,200])(specchiompleto)
+specchioRotate=R([2,3])(PI/2)(specchioScale)
+specchioRotate2=R([1,3])(PI/2)(specchioRotate)
+specchioTrasl=T([1,2,3])([1300,1200,-150])(specchioRotate2)
 
-#marmitta macchina
+#marmitta
 
-def mufflerCar (radius,length):
+def marmittafun (radius,length):
 
     def circle (r) :
         def mapping (p) :
@@ -270,13 +274,13 @@ def mufflerCar (radius,length):
         dom2D = PROD([INTERVALS(2*PI)(360), INTERVALS(r)(1)])
         return MAP(mapping)(dom2D)
 
-    dom2Dcircle = PROD([INTERVALS(1)(30),INTERVALS(2*PI)(72)])
-    controlPoints = [[radius,0,0],[radius,0,length]]
-    mufflerFunction = BEZIER(S1)(controlPoints)
-    lowerBase = circle(radius)
-    muffler = MAP(ROTATIONALSURFACE(mufflerFunction))(dom2Dcircle)
-    muffler = STRUCT([lowerBase,muffler])
-    muffler = COLOR([0.78,0.78,0.78])(muffler)
+    dom2Dcirc = PROD([INTERVALS(1)(30),INTERVALS(2*PI)(72)])
+    punticontrollo = [[radius,0,0],[radius,0,length]]
+    funzionemarmitta = BEZIER(S1)(punticontrollo)
+    Baseinf = circle(radius)
+    marmitta = MAP(ROTATIONALSURFACE(funzionemarmitta))(dom2Dcirc)
+    marmitta = STRUCT([Baseinf,marmitta])
+    marmitta = COLOR([0.78,0.78,0.78])(marmitta)
 
     # marmitta doppia
     #muffler = T(1)(radius)(muffler)
@@ -284,10 +288,14 @@ def mufflerCar (radius,length):
     #muffler = STRUCT([muffler,muffler2])
     #muffler = R([1,2])(-PI/2)(muffler)
 
-    muffler = R([1,3])(-PI/2)(muffler)
+    marmitta = R([1,3])(-PI/2)(marmitta)
 
-    return muffler
+    return marmitta
 
-macchinacompleta=STRUCT([scoccheTotale,specchiompleto])
+
+marmiRotata = R([1,2])(PI)(marmittafun(50,300))
+marmiTrasla= T([1,2,3])([30,1000,400])(marmiRotata)
+
+macchinacompleta=STRUCT([scoccheTotale,specchioTrasl,marmiTrasla])
 
 VIEW(macchinacompleta)
