@@ -1,3 +1,6 @@
+#i pezzi sono ruotati per bene nell'esercizio5
+
+
 from pyplasm import *
 import scipy
 from scipy import *
