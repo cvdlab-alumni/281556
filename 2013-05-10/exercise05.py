@@ -164,6 +164,7 @@ scoccaDavanti = BEZIER(S1)([[0,96,1490],[0,76,1750],[0,131,1804],[0,218,1980],[0
 
 
 scoccaDavantiMap = MAP(scoccaDavanti)(domain)
+scoccaDavMap= T([1,2,3])([2000,600,-1300])(scoccaDavantiMap)
 
 
 #muso dietro
@@ -209,7 +210,7 @@ gomme4=T([3])(800)(gommacompletaT)
 gommeAll=STRUCT([gommacompleta2,gommacompletaT,gomme3,gomme4])
 
 
-scoccheTotale= STRUCT([scoccaSopraTotaleT,gommeAll,scoccheEsterne,scoccaDavantiMap,scoccaDietroMap])
+scoccheTotale= STRUCT([scoccaSopraTotaleT,gommeAll,scoccheEsterne,scoccaDavMap,scoccaDietroMap])
 
 
 
