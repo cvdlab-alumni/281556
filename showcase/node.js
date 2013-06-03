@@ -19,7 +19,7 @@
 
 
   var scmodel = (function () {
-  /*///////////////////////////////////////////
+
 		//farfalla
 
 		//DOMINI
@@ -382,9 +382,8 @@
 		var bustocolor = COLOR([0,0,0])(supBusto);
 
 		//DRAW(bustocolor);
+		var model = STRUCT([farfallaCompleta,bustocolor]);
 			
-
-  ///////////////////////////////////////////*/
   return model
   })();
 
