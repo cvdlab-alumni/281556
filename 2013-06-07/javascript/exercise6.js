@@ -40,4 +40,3 @@ var lar = function(V,FV){
 }
 
 var ex6 = lar(V,FV);
-document.write(ex6);
