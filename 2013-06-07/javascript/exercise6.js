@@ -23,15 +23,21 @@ var lar = function(V,FV){
 
   	esito = esito + "#vertices" +'\n';
   	
-  	for(i=0; i < V.length; i++){  		
+  	for(i=0; i < V.length; i++){ 
+
   		esito = esito + "V   " + V[i][0] + "  " + V[i][1] + '\n';
   	}
   	
   	esito = esito + "#faces" +'\n';
-  	for(i=0; i < FV.length; i++){ 
+
+
+  	for(a=0; a < FV.length; i++){ 
+
   		esito = esito + "f ";
   			for(j=0; j< FV[i].length; j++){ 	
+
   		        esito = esito + FV[i][j] + "   ";
+              
   		        if(j === (FV[i].length)-1 ) 
   		        	esito = esito + '\n'
   			}
