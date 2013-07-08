@@ -31,7 +31,7 @@ var lar = function(V,FV){
   	esito = esito + "#faces" +'\n';
 
 
-  	for(a=0; a < FV.length; i++){ 
+  	for(i=0; i < FV.length; i++){ 
 
   		esito = esito + "f ";
   			for(j=0; j< FV[i].length; j++){ 	
